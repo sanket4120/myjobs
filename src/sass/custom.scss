@@ -1,0 +1,15 @@
+$primary: #664de6;
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+* {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.form-control,
+.form-check-input,
+.btn {
+  box-shadow: none !important;
+}
