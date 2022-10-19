@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useReducer, useState } from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { Applicants, Loader } from '../../components';
+import { Applicants, Loader, Pagination } from '../../components';
 import {
   GET_JOBS_REQUEST,
   GET_JOBS_SUCCESS,
@@ -16,6 +16,8 @@ const MyJobs = () => {
     error: null,
   });
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   const [showApplicants, setShowApplicants] = useState(false);
   const handleClose = () => setShowApplicants(false);
   const [currentJobId, setCurrentJobId] = useState('');
@@ -28,8 +30,10 @@ const MyJobs = () => {
         const res = await axios.get(
           `https://jobs-api.squareboat.info/api/v1/recruiters/jobs?page=${currentPage}`
         );
-        const { data } = res.data.data;
+
+        const { data, metadata } = res.data.data;
         setMyJobsState({ type: GET_JOBS_SUCCESS, payload: data });
+        setTotalPages(Math.ceil(metadata.count / metadata.limit));
       } catch (error) {
         console.log(error.response.data);
       }
@@ -47,6 +51,10 @@ const MyJobs = () => {
     setShowApplicants(true);
   };
 
+  const handleCurrentPage = (count) => {
+    setCurrentPage((currentPage) => currentPage + count);
+  };
+
   const { loading, myJobs, error } = myJobsState;
 
   return (
@@ -62,34 +70,43 @@ const MyJobs = () => {
       {loading && <Loader />}
 
       {!loading && myJobs && (
-        <Row md={3} lg={4} className='gx-3 gy-5'>
-          {myJobs.map((job) => (
-            <Col key={job.id} className='d-flex flex-column'>
-              <Card className=' flex-grow-1'>
-                <Card.Body>
-                  <Card.Title>{job.title}</Card.Title>
-                  <Card.Text>{truncate(job.description, 70)}</Card.Text>
-                </Card.Body>
+        <>
+          <Row md={3} lg={4} className='gx-3 gy-5'>
+            {myJobs.map((job) => (
+              <Col key={job.id} className='d-flex flex-column'>
+                <Card className=' flex-grow-1'>
+                  <Card.Body>
+                    <Card.Title>{job.title}</Card.Title>
+                    <Card.Text>{truncate(job.description, 70)}</Card.Text>
+                  </Card.Body>
 
-                <Card.Footer className='border-0 bg-transparent d-flex justify-content-between gap-1 flex-wrap'>
-                  <span className='d-flex align-items-center'>
-                    <i className='fa-solid fa-location-dot text-primary'></i>
-                    <span className='ms-1 text-break'>
-                      {job.location.split(' ')[0]}
+                  <Card.Footer className='border-0 bg-transparent d-flex justify-content-between gap-1 flex-wrap'>
+                    <span className='d-flex align-items-center'>
+                      <i className='fa-solid fa-location-dot text-primary'></i>
+                      <span className='ms-1 text-break'>
+                        {truncate(job.location, 10)}
+                      </span>
                     </span>
-                  </span>
-                  <Button
-                    className='bg-primary bg-opacity-25 text-dark border-0'
-                    size='sm'
-                    onClick={() => viewApplicants(job.id)}
-                  >
-                    View Applications
-                  </Button>
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+                    <Button
+                      className='bg-primary bg-opacity-25 text-dark border-0'
+                      size='sm'
+                      onClick={() => viewApplicants(job.id)}
+                    >
+                      View Applications
+                    </Button>
+                  </Card.Footer>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+          {totalPages > 1 && (
+            <Pagination
+              totalPages={totalPages}
+              handleCurrentPage={handleCurrentPage}
+              currentPage={currentPage}
+            />
+          )}
+        </>
       )}
 
       {!loading && !error && myJobs.length === 0 && (

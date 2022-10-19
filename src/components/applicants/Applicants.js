@@ -34,8 +34,9 @@ function Applicants({ showApplicants, handleClose, jobId }) {
         console.log(error.response.data);
       }
     };
-
-    getApplicants();
+    if (jobId) {
+      getApplicants();
+    }
   }, [jobId]);
 
   const { loading, error, applicants } = applicantsState;

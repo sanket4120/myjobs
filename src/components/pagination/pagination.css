@@ -1,0 +1,4 @@
+.pagination .btn {
+  min-width: max-content;
+  padding: 5px 13px;
+}
