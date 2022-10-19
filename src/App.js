@@ -9,7 +9,7 @@ import { GlobalProvider } from './context/globalContext';
 function App() {
   return (
     <div className='app min-vh-100'>
-      <Wrapper height='60vh' />
+      <Wrapper />
       <GlobalProvider>
         <Container className='main-container'>
           <Header />
