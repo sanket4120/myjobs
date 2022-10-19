@@ -1,5 +1,5 @@
 import { Button, Card, Col, Image, Row } from 'react-bootstrap';
-import { Wrapper } from '../../components';
+import { Link } from 'react-router-dom';
 import './homepage.css';
 
 const Homepage = () => {
@@ -69,7 +69,9 @@ const Homepage = () => {
             </span>
           </h1>
           <div>
-            <Button variant='primary text-white'>Get Started</Button>
+            <Link to='/myjobs'>
+              <Button variant='primary text-white'>Get Started</Button>
+            </Link>
           </div>
         </div>
         <div className='hero-image'>

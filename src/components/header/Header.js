@@ -2,6 +2,7 @@ import { Button, Dropdown, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../actions/authActions';
 import { useAuth } from '../../context/authContext';
+import { Avatar } from '../avatar/Avatar';
 import './header.css';
 
 const Header = () => {
@@ -22,8 +23,8 @@ const Header = () => {
         <Nav>
           {authState.isAuthenticated ? (
             <Dropdown>
-              <Dropdown.Toggle className='bg-transparent border-0 text-white'>
-                {authState.user.name}
+              <Dropdown.Toggle className='bg-transparent border-0 text-white d-flex align-items-center justify-content-end'>
+                <Avatar name={authState.user.name} />
               </Dropdown.Toggle>
 
               <Dropdown.Menu align='end' className='mt-2'>

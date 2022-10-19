@@ -12,7 +12,7 @@ const authReducer = (state, action) => {
     case USER_LOGIN_REQUEST:
       return { ...state, loading: true };
     case USER_LOGIN_SUCCESS:
-      localStorage.setItem('token', payload.encodedToken);
+      localStorage.setItem('token', payload.token);
       return { loading: false, user: payload.user, isAuthenticated: true };
     case USER_LOGIN_FAIL:
       return { loading: false, error: payload, user: null };

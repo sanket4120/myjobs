@@ -1,9 +1,9 @@
 import './css/App.min.css';
 import './css/main.css';
 import { Routes, Route } from 'react-router-dom';
-import { Homepage, Login } from './pages';
+import { Homepage, Login, MyJobs } from './pages';
 import { Container } from 'react-bootstrap';
-import { Header, Wrapper } from './components';
+import { AuthRequired, Header, Wrapper } from './components';
 import { GlobalProvider } from './context/globalContext';
 
 function App() {
@@ -15,8 +15,11 @@ function App() {
           <Header />
           <Container>
             <Routes>
-              <Route path='/' element={<Homepage />}></Route>
-              <Route path='/login' element={<Login />}></Route>
+              <Route path='/' element={<Homepage />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/' element={<AuthRequired />}>
+                <Route path='/myjobs' element={<MyJobs />} />
+              </Route>
             </Routes>
           </Container>
         </Container>

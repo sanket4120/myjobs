@@ -20,7 +20,7 @@ const useUserLogin = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || '/';
+  const from = location.state?.from || '/myjobs';
 
   useEffect(() => {
     if (isAuthenticated) {
