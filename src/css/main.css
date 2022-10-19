@@ -1,0 +1,33 @@
+:root {
+  --navbarHeight: 3.7rem;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+.app {
+  background-color: #edf6ff;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.btn {
+  min-width: 8rem;
+}
+
+.btn,
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+  color: white;
+}
+
+.main-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}

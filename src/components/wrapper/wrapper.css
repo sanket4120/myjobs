@@ -1,0 +1,9 @@
+.wrapper {
+  height: 60vh;
+  background-color: #2d3c5b;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
